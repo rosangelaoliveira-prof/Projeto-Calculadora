@@ -1,47 +1,52 @@
-
-
 name: Automação da Calculadora
-
 
 on:
   push:
     branches:
       - main
 
-
   pull_request:
     branches:
       - main
 
-
 jobs:
   verificar-projeto:
 
-
     runs-on: ubuntu-latest
-
 
     steps:
 
-
       - name: Baixar o código do projeto
         uses: actions/checkout@v4
-
 
       - name: Verificar arquivos principais
         run: |
           echo "Verificando estrutura da Calculadora Multifuncional..."
 
-
           test -f index.html
           test -f style.css
           test -f script.js
 
-
           echo "Todos os arquivos principais foram encontrados!"
 
+      - name: Verificar funções da calculadora
+        run: |
+          echo "Verificando funções da V2..."
+
+          grep -q "function somar" script.js
+          grep -q "function subtrair" script.js
+          grep -q "function multiplicar" script.js
+          grep -q "function dividir" script.js
+
+          echo "As quatro funções foram encontradas!"
 
       - name: Finalizar automação
+        run: |
+          echo "===================================="
+          echo "Automação executada com sucesso!"
+          echo "Calculadora Multifuncional - V2"
+          echo "Soma | Subtração | Multiplicação | Divisão"
+          echo "===================================="
         run: |
           echo "===================================="
           echo "Automação executada com sucesso!"
